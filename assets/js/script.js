@@ -8,10 +8,9 @@ var searchedCities = $("#searchedCityLi");
 var getCityWeather = function (searchCityName) {
   // formate the OpenWeather api url
   var apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q={" +
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
     searchCityName +
-    "}&appid={264dbcaa3899de05eeadc78d68ba06dc}";
-  console.log(apiUrl);
+    "&APPID=264dbcaa3899de05eeadc78d68ba06dc";
   // make a request to url
   fetch(apiUrl)
     .then(function (response) {
@@ -27,7 +26,6 @@ var getCityWeather = function (searchCityName) {
 //---------------------- load saved citeis names from localStorage starts here ------------------------//
 var loadSavedCity = function () {
   citiesListArr = JSON.parse(localStorage.getItem("weatherInfo"));
-  console.log(citiesListArr);
   if (citiesListArr == null) {
     citiesListArr = [];
   }
@@ -45,7 +43,7 @@ var saveCityName = function (searchCityName) {
   if (citiesListArr == null) {
     citiesListArr = [];
     citiesListArr.unshift(searchCityName);
-  } else if (citiesListArr == !null && citiesListArr.length < numOfCities) {
+  } else if (citiesListArr.length < numOfCities) {
     // create object
     citiesListArr.unshift(searchCityName);
   } else {
@@ -83,7 +81,7 @@ var formSubmitHandler = function (event) {
   if (searchCityName) {
     saveCityName(searchCityName);
     createCityNameBtn(searchCityName);
-    // getCityWeather(searchCityName);
+    getCityWeather(searchCityName);
   } else {
     alert("please enter a city name!");
   }
