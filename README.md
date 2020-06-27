@@ -9,6 +9,7 @@
 - JavaScript
 
 ## Website
+ https://rhw-git.github.io/challenge-06-Weather-Dashboard/.
 
 ## Screenshot
 
