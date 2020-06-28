@@ -54,9 +54,7 @@ var getUVIndex = function (lat, lon) {
       }
     });
 };
-var getForecast = function (searchCityName) {
-  alert("5 day forecast");
-};
+var getForecast = function (searchCityName) {};
 //-------------------------- get weather info from OpenWeather ends here ------------------------------//
 //-------------------------------------- create button starts  ----------------------------------------//
 var creatBtn = function (btnText) {
