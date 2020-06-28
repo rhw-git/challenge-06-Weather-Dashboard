@@ -35,7 +35,6 @@ var getCityWeather = function (searchCityName) {
       getUVIndex(lat, lon);
     });
 };
-
 var getUVIndex = function (lat, lon) {
   // formate the OpenWeather api url
   var apiUrl =
@@ -55,7 +54,9 @@ var getUVIndex = function (lat, lon) {
       }
     });
 };
-
+var getForecast = function (searchCityName) {
+  alert("5 day forecast");
+};
 //-------------------------- get weather info from OpenWeather ends here ------------------------------//
 //-------------------------------------- create button starts  ----------------------------------------//
 var creatBtn = function (btnText) {
@@ -119,6 +120,7 @@ var formSubmitHandler = function (event) {
     saveCityName(searchCityName);
     createCityNameBtn(searchCityName);
     getCityWeather(searchCityName);
+    getForecast(searchCityName);
   } else {
     alert("please enter a city name!");
   }
@@ -128,6 +130,7 @@ var BtnClickHandler = function (event) {
   // name of the city
   var searchCityName = event.target.textContent.trim();
   getCityWeather(searchCityName);
+  getForecast(searchCityName);
 };
 //--------------------------- event handler from submit form ends here ------------------------------//
 //------------------------ call functions with submit button starts here ----------------------------//
