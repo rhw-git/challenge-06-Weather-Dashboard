@@ -1,16 +1,18 @@
 // set global variables
 var citiesListArr = [];
 var numOfCities = 9;
+var personalAPIKey = "appid=264dbcaa3899de05eeadc78d68ba06dc";
+
+var dailyWeatherApiStarts =
+  "https://api.openweathermap.org/data/2.5/weather?q=";
+var dailyUVIndexApiStarts = "http://api.openweathermap.org/data/2.5/uvi?";
 // select from html element
 var searchCityForm = $("#searchCityForm");
 var searchedCities = $("#searchedCityLi");
 //-------------------------- get weather info from OpenWeather starts here ------------------------------//
 var getCityWeather = function (searchCityName) {
   // formate the OpenWeather api url
-  var apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    searchCityName +
-    "&APPID=264dbcaa3899de05eeadc78d68ba06dc";
+  var apiUrl = dailyWeatherApiStarts + searchCityName + "&" + personalAPIKey;
   // make a request to url
   fetch(apiUrl)
     .then(function (response) {
@@ -19,18 +21,41 @@ var getCityWeather = function (searchCityName) {
     .then(function (response) {
       $("#cityName").html(response.name);
       // display weather icon
-      console.log(response.weather.icon);
       weatherIncoUrl =
         "http://openweathermap.org/img/wn/" +
         response.weather[0].icon +
         "@2x.png";
-      console.log(weatherIncoUrl);
       $("#weatherIconToday").attr("src", weatherIncoUrl);
       $("#tempToday").html(response.main.temp + " \u00B0F");
       $("#humidityToday").html(response.main.humidity + " %");
       $("#windSpeedToday").html(response.wind.speed + " MPH");
+      // return coordinate for getUVIndex to call
+      var lat = response.coord.lat;
+      var lon = response.coord.lon;
+      getUVIndex(lat, lon);
     });
 };
+
+var getUVIndex = function (lat, lon) {
+  // formate the OpenWeather api url
+  var apiUrl =
+    dailyUVIndexApiStarts + personalAPIKey + "&lat=" + lat + "&lon=" + lon;
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      $("#UVIndexToday").html(response.value);
+      if (response.value < 3) {
+        $("#UVIndexToday").addClass("p-1 rounded bg-success text-white");
+      } else if (response.value < 8) {
+        $("#UVIndexToday").addClass("p-1 rounded bg-warning text-white");
+      } else {
+        $("#UVIndexToday").addClass("p-1 rounded bg-danger text-white");
+      }
+    });
+};
+
 //-------------------------- get weather info from OpenWeather ends here ------------------------------//
 //-------------------------------------- create button starts  ----------------------------------------//
 var creatBtn = function (btnText) {
