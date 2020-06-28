@@ -1,6 +1,6 @@
 // set global variables
 var citiesListArr = [];
-var numOfCities = 3;
+var numOfCities = 9;
 // select from html element
 var searchCityForm = $("#searchCityForm");
 var searchedCities = $("#searchedCityLi");
@@ -17,12 +17,30 @@ var getCityWeather = function (searchCityName) {
       return response.json();
     })
     .then(function (response) {
-      console.log(response.main.temp);
-      console.log(response.main.humidity);
-      console.log(response.wind.speed);
+      $("#cityName").html(response.name);
+      // display weather icon
+      console.log(response.weather.icon);
+      weatherIncoUrl =
+        "http://openweathermap.org/img/wn/" +
+        response.weather[0].icon +
+        "@2x.png";
+      console.log(weatherIncoUrl);
+      $("#weatherIconToday").attr("src", weatherIncoUrl);
+      $("#tempToday").html(response.main.temp + " \u00B0F");
+      $("#humidityToday").html(response.main.humidity + " %");
+      $("#windSpeedToday").html(response.wind.speed + " MPH");
     });
 };
 //-------------------------- get weather info from OpenWeather ends here ------------------------------//
+//-------------------------------------- create button starts  ----------------------------------------//
+var creatBtn = function (btnText) {
+  var btn = $("<button>")
+    .text(btnText)
+    .addClass("list-group-item list-group-item-action")
+    .attr("type", "submit");
+  return btn;
+};
+//-------------------------------------- create button ends  ------------------------------------------//
 //---------------------- load saved citeis names from localStorage starts here ------------------------//
 var loadSavedCity = function () {
   citiesListArr = JSON.parse(localStorage.getItem("weatherInfo"));
@@ -30,9 +48,7 @@ var loadSavedCity = function () {
     citiesListArr = [];
   }
   for (var i = 0; i < citiesListArr.length; i++) {
-    var cityNameBtn = $("<button>")
-      .text(citiesListArr[i])
-      .addClass("list-group-item list-group-item-action");
+    var cityNameBtn = creatBtn(citiesListArr[i]);
     searchedCities.prepend(cityNameBtn);
   }
 };
@@ -58,15 +74,11 @@ var saveCityName = function (searchCityName) {
 //-------------------------- create button with searched city starts here -----------------------------//
 var createCityNameBtn = function (citiesListArr) {
   if (searchedCities[0].childElementCount < numOfCities) {
-    var cityNameBtn = $("<button>")
-      .text(citiesListArr)
-      .addClass("list-group-item list-group-item-action");
+    var cityNameBtn = creatBtn(citiesListArr);
     searchedCities.prepend(cityNameBtn);
   } else {
     searchedCities[0].removeChild(searchedCities[0].lastChild);
-    var cityNameBtn = $("<button>")
-      .text(citiesListArr)
-      .addClass("list-group-item list-group-item-action");
+    var cityNameBtn = creatBtn(citiesListArr);
     searchedCities.prepend(cityNameBtn);
   }
 };
@@ -86,9 +98,18 @@ var formSubmitHandler = function (event) {
     alert("please enter a city name!");
   }
 };
+var BtnClickHandler = function (event) {
+  event.preventDefault();
+  // name of the city
+  var searchCityName = event.target.textContent.trim();
+  getCityWeather(searchCityName);
+};
 //--------------------------- event handler from submit form ends here ------------------------------//
 //------------------------ call functions with submit button starts here ----------------------------//
 $("#searchCityForm").on("submit", function () {
   formSubmitHandler(event);
+});
+$(":button.list-group-item-action").on("click", function () {
+  BtnClickHandler(event);
 });
 //-------------------------- call functions with submit button ends here ----------------------------//

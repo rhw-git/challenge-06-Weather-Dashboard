@@ -45,7 +45,29 @@
           </form>
           <li class="list-group col col-12" id="searchedCityLi"></li>
         </section>
-        <section class="col col-9" id="display-weather-info"></section>
+        <section class="col col-9 mt-3" id="display-weather-info">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title d-flex align-items-center" style="height: 100px">
+                <span id="cityName">Name of City</span>
+                <img class="weather-icon" id="weatherIconToday" src="">
+                </img>
+              </h5>
+              <p class="card-text">
+                Temperature:
+                <span id="tempToday">--</span>
+              </p>
+              <p class="card-text">
+                Humidity:
+                <span id="humidityToday">--</span>
+              </p>
+              <p class="card-text">
+                Wind Speed:
+                <span id="windSpeedToday">--</span>
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
     <!--JQuery related script-->
