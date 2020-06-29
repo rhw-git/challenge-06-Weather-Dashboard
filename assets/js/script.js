@@ -163,7 +163,6 @@ var saveCityName = function (searchCityName) {
 //-------------------------- create button with searched city starts here -----------------------------//
 var createCityNameBtn = function (searchCityName) {
   var saveCities = JSON.parse(localStorage.getItem("weatherInfo"));
-  console.log(saveCities);
   // check the searchCityName parameter against all children of citiesListArr
   if (saveCities.length == 1) {
     var cityNameBtn = creatBtn(searchCityName);
