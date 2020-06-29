@@ -12,6 +12,7 @@
  https://rhw-git.github.io/challenge-06-Weather-Dashboard/.
 
 ## Screenshot
+![](assets/picture/screenshot.PNG)
 
 ## Contribution
 Made with ❤️ by Ruohan
