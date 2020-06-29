@@ -61,6 +61,8 @@ var getUVIndex = function (lat, lon) {
       return response.json();
     })
     .then(function (response) {
+      // remove all class background
+      $("#UVIndexToday").removeClass();
       $("#UVIndexToday").html(response.value);
       if (response.value < 3) {
         $("#UVIndexToday").addClass("p-1 rounded bg-success text-white");
