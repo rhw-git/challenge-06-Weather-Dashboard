@@ -39,14 +39,12 @@ var getCityWeather = function (searchCityName) {
         var lon = response.coord.lon;
         getUVIndex(lat, lon);
         getForecast(lat, lon);
-        createCityNameBtn(searchCityName);
       });
     } else {
       alert("Please provide a valid city name.");
     }
   });
 };
-
 var getUVIndex = function (lat, lon) {
   // formate the OpenWeather api url
   var apiUrl =
@@ -139,29 +137,51 @@ var saveCityName = function (searchCityName) {
   if (citiesListArr == null) {
     citiesListArr = [];
     citiesListArr.unshift(searchCityName);
-  } else if (citiesListArr.length < numOfCities) {
-    // create object
-    citiesListArr.unshift(searchCityName);
   } else {
-    // control the length of the array. do not allow to save more than 10 cities
-    citiesListArr.pop();
-    citiesListArr.unshift(searchCityName);
+    for (var i = 0; i < citiesListArr.length; i++) {
+      if (searchCityName == citiesListArr[i]) {
+        return;
+      }
+    }
+    if (citiesListArr.length < numOfCities) {
+      // create object
+      citiesListArr.unshift(searchCityName);
+    } else {
+      // control the length of the array. do not allow to save more than 10 cities
+      citiesListArr.pop();
+      citiesListArr.unshift(searchCityName);
+    }
   }
   localStorage.setItem("weatherInfo", JSON.stringify(citiesListArr));
   return citiesListArr;
 };
 //------------------------ save searched city in to local storage ends here ---------------------------//
 //-------------------------- create button with searched city starts here -----------------------------//
-var createCityNameBtn = function (citiesListArr) {
-  if (searchedCities[0].childElementCount < numOfCities) {
-    var cityNameBtn = creatBtn(citiesListArr);
+var createCityNameBtn = function (searchCityName) {
+  var saveCities = JSON.parse(localStorage.getItem("weatherInfo"));
+  console.log(saveCities);
+  // check the searchCityName parameter against all children of citiesListArr
+  if (saveCities.length == 1) {
+    var cityNameBtn = creatBtn(searchCityName);
     searchedCities.prepend(cityNameBtn);
   } else {
-    searchedCities[0].removeChild(searchedCities[0].lastChild);
-    var cityNameBtn = creatBtn(citiesListArr);
-    searchedCities.prepend(cityNameBtn);
+    for (var i = 1; i < saveCities.length; i++) {
+      if (searchCityName == saveCities[i]) {
+        return;
+      }
+    }
+    // check whether there are already have too many elements in this list of button
+    if (searchedCities[0].childElementCount < numOfCities) {
+      var cityNameBtn = creatBtn(searchCityName);
+      searchedCities.prepend(cityNameBtn);
+    } else {
+      searchedCities[0].removeChild(searchedCities[0].lastChild);
+      var cityNameBtn = creatBtn(searchCityName);
+      searchedCities.prepend(cityNameBtn);
+    }
   }
 };
+
 //------------------------------------- call functions directly ---------------------------------------//
 loadSavedCity();
 //-------------------------- create button with searched city ends here -------------------------------//
@@ -171,8 +191,8 @@ var formSubmitHandler = function (event) {
   // name of the city
   var searchCityName = $("#searchCity").val().trim();
   saveCityName(searchCityName);
-
   getCityWeather(searchCityName);
+  createCityNameBtn(searchCityName);
 };
 var BtnClickHandler = function (event) {
   event.preventDefault();
