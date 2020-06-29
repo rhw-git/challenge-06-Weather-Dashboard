@@ -20,16 +20,16 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
   </head>
-  <body class="flex-column min-100-vh">
+  <body>
     <header class="hero">
       <h1 class="bg-dark text-white text-center mb-0">Weather Dashboard</h1>
     </header>
-    <main class="container col col-12">
-      <div class="row">
-        <section class="col col-3 bg-light py-4 mblank-0" id="serach-from">
+    <main>
+      <div class="row min-vh-100 no-gutters">
+        <section class="col-12 col-lg-3 bg-light py-4 mblank-0 d-flex flex-column" id="serach-from">
           <form class="form-group" id="searchCityForm">
             <label for="searchCity" class="col col-12">Search for a City</label>
-            <div class="form-check-inline col col-12">
+            <div class="form-check-inline col col-12 px-3">
               <input
                 type="text"
                 class="form-input"
@@ -42,9 +42,9 @@
               </button>
             </div>
           </form>
-          <li class="list-group col col-12" id="searchedCityLi"></li>
+          <li class="list-group col col-12 d-none d-lg-block px-3" id="searchedCityLi"></li>
         </section>
-        <section class="col col-9 mt-3" id="display-weather-info">
+        <section class="col-12 col-lg-9 mt-3 d-flex flex-column px-3" id="display-weather-info">
           <div class="card">
             <div class="card-body">
               <h2 class="card-title d-flex align-items-center lead font-weight-bold" style="height: 100px">
@@ -76,7 +76,7 @@
               5-Day Forecast:
             </h2>
             <div class="row justify-content-between">
-              <div class="col-sm-2 card-body bg-primary text-white rounded">
+              <div class="col-sm-2 card-body bg-primary text-white rounded mb-3">
                 <p class="card-title font-weight-bold" id="Date1">MM/DD/YY</p>
                 <p class="card-text" style="height: 100px">
                   <img class="weather-icon" id="weatherIconDay1" src="">
@@ -89,7 +89,7 @@
                   <span id="humidityDay1">--</span>
                 </p>
               </div>
-              <div class="col-sm-2 card-body bg-primary text-white rounded">
+              <div class="col-sm-2 card-body bg-primary text-white rounded mb-3">
                 <p class="card-title font-weight-bold" id="Date2">MM/DD/YY</p>
                 <p class="card-text" style="height: 100px">
                   <img class="weather-icon" id="weatherIconDay2" src="">
@@ -102,7 +102,7 @@
                   <span id="humidityDay2">--</span>
                 </p>
               </div>
-              <div class="col-sm-2 card-body bg-primary text-white rounded">
+              <div class="col-sm-2 card-body bg-primary text-white rounded mb-3">
                 <p class="card-title font-weight-bold" id="Date3">MM/DD/YY</p>
                 <p class="card-text" style="height: 100px">
                   <img class="weather-icon" id="weatherIconDay3" src="">
@@ -115,7 +115,7 @@
                   <span id="humidityDay3">--</span>
                 </p>
               </div>
-              <div class="col-sm-2 card-body bg-primary text-white rounded">
+              <div class="col-sm-2 card-body bg-primary text-white rounded mb-3">
                 <p class="card-title font-weight-bold" id="Date4">MM/DD/YY</p>
                 <p class="card-text" style="height: 100px">
                   <img class="weather-icon" id="weatherIconDay4"  src="">
@@ -128,7 +128,7 @@
                   <span id="humidityDay4">--</span>
                 </p>
               </div>
-              <div class="col-sm-2 card-body bg-primary text-white rounded">
+              <div class="col-sm-2 card-body bg-primary text-white rounded mb-3">
                 <p class="card-title font-weight-bold" id="Date5">MM/DD/YY</p>
                 <p class="card-text" style="height: 100px">
                   <img class="weather-icon" id="weatherIconDay5" src="">
